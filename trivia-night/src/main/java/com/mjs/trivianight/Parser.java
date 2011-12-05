@@ -103,12 +103,15 @@ public final class Parser {
 
 	private Predicate isAnswer = PredicateUtils.nonePredicate(new Predicate[] {
 			isRound, isQuestion, isBlank });
+	
+	private final Pattern answerPattern = Pattern.compile("^A\\.");
 
 	private Closure addAnswer = new Closure() {
 
 		public void execute(Object arg0) {
 			assert question != null;
 			answer = arg0.toString().trim();
+			answer = answerPattern.matcher(answer).replaceFirst("");
 			questions.add(new Question(questionNumber, question, answer));
 			question = null;
 			answer = null;

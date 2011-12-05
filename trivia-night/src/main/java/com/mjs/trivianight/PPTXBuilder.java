@@ -14,7 +14,7 @@ import org.apache.poi.xslf.usermodel.XSLFTextParagraph;
 import org.apache.poi.xslf.usermodel.XSLFTextRun;
 
 /**
- * Builds a set trivia pptx slides. Each round starts with a slide introduction.
+ * Builds a set of trivia pptx slides. Each round starts with a slide introduction.
  * Followed by a slide per question with its question number (participants write
  * answers on round/question numbered sheet). The end of a trivia round is
  * introduced on a slide (to allow participants to hand-in answer sheets).
@@ -29,6 +29,7 @@ public final class PPTXBuilder {
 
 	private static final int DPI = 72;
 	private static final String FONT_FAMILY = "Trebuchet MS (Headings)";
+	private static final Color ORANGE = new Color(227, 100, 6);
 
 	public PPTXBuilder(String saveLocation) {
 		this.saveLocation = saveLocation;
@@ -41,7 +42,7 @@ public final class PPTXBuilder {
 		XSLFTextParagraph paragraph = textBox.addNewTextParagraph();
 		paragraph.setTextAlign(TextAlign.CENTER);
 		XSLFTextRun textRun = paragraph.addNewTextRun();
-		textRun.setFontColor(Color.black);
+		textRun.setFontColor(ORANGE);
 		textRun.setFontFamily(FONT_FAMILY);
 		textRun.setFontSize(60);
 		textRun.setText("Round " + String.valueOf(round.getRoundNumber()));
@@ -56,7 +57,7 @@ public final class PPTXBuilder {
 		questionNbrTextBox.setVerticalAlignment(VerticalAlignment.MIDDLE);
 		XSLFTextRun questionNbrTextRun = questionNbrTextBox
 				.addNewTextParagraph().addNewTextRun();
-		questionNbrTextRun.setFontColor(Color.black);
+		questionNbrTextRun.setFontColor(Color.white);
 		questionNbrTextRun.setFontFamily(FONT_FAMILY);
 		questionNbrTextRun.setFontSize(48);
 		questionNbrTextRun.setText("Question "
@@ -70,7 +71,7 @@ public final class PPTXBuilder {
 		XSLFTextParagraph paragraph = questionTextBox.addNewTextParagraph();
 		paragraph.setTextAlign(TextAlign.CENTER);
 		XSLFTextRun questionTextRun = paragraph.addNewTextRun();
-		questionTextRun.setFontColor(Color.black);
+		questionTextRun.setFontColor(ORANGE);
 		questionTextRun.setFontFamily(FONT_FAMILY);
 		questionTextRun.setFontSize(60);
 		questionTextRun.setText(question.getQuestion());
@@ -86,18 +87,19 @@ public final class PPTXBuilder {
 		endOfRdTextBox.setVerticalAlignment(VerticalAlignment.MIDDLE);
 		XSLFTextRun endOfRdTextRun = endOfRdTextBox.addNewTextParagraph()
 				.addNewTextRun();
-		endOfRdTextRun.setFontColor(Color.black);
+		endOfRdTextRun.setFontColor(Color.white);
 		endOfRdTextRun.setFontFamily(FONT_FAMILY);
 		endOfRdTextRun.setFontSize(48);
 		endOfRdTextRun.setText("End of Round "
 				+ String.valueOf(round.getRoundNumber()));
-		endOfRdTextRun.setBold(true);
 		endOfRdTextBox.setAnchor(new Rectangle(DPI / 4, 0, 9 * DPI, 1 * DPI));
 
 		XSLFTextBox textBox = slide.createTextBox();
 		textBox.setVerticalAlignment(VerticalAlignment.TOP);
-		XSLFTextRun textRun = textBox.addNewTextParagraph().addNewTextRun();
-		textRun.setFontColor(Color.black);
+		XSLFTextParagraph paragraph = textBox.addNewTextParagraph();
+		paragraph.setTextAlign(TextAlign.CENTER);
+		XSLFTextRun textRun = paragraph.addNewTextRun();
+		textRun.setFontColor(ORANGE);
 		textRun.setFontFamily(FONT_FAMILY);
 		textRun.setFontSize(60);
 		textRun.setText("Please hand-in your table’s answer sheet.");
@@ -114,7 +116,7 @@ public final class PPTXBuilder {
 		questionTextBox.setVerticalAlignment(VerticalAlignment.TOP);
 		XSLFTextRun questionTextRun = questionTextBox.addNewTextParagraph()
 				.addNewTextRun();
-		questionTextRun.setFontColor(Color.black);
+		questionTextRun.setFontColor(Color.white);
 		questionTextRun.setFontFamily(FONT_FAMILY);
 		questionTextRun.setFontSize(48);
 		questionTextRun.setText(question.getQuestion());
@@ -127,7 +129,7 @@ public final class PPTXBuilder {
 		XSLFTextParagraph paragraph = answerTextBox.addNewTextParagraph();
 		paragraph.setTextAlign(TextAlign.CENTER);
 		XSLFTextRun answerTextRun = paragraph.addNewTextRun();
-		answerTextRun.setFontColor(Color.black);
+		answerTextRun.setFontColor(ORANGE);
 		answerTextRun.setFontFamily("Trebuchet MS (Headings)");
 		answerTextRun.setFontSize(60);
 		answerTextRun.setText(question.getAnswer());
